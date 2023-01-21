@@ -27,3 +27,5 @@ func move():
 func move_state(delta):
 	velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta);
 	move();
+
+#bug booty
