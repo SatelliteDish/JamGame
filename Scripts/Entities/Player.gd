@@ -41,7 +41,6 @@ func jump_state():
 	stateMachine.state_complete();
 
 func on_state_changed(_state: String):
-	print("State changed to " + _state);
 	state = _state;
 
 func input_vector_changed(var vector: Vector2):
