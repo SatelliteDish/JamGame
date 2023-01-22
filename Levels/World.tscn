@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Entities/Player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://World/GroundTileMap.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scripts/Spawner.tscn" type="PackedScene" id=3]
+[ext_resource path="res://World/Ground/GroundController.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/SpawnerController.tscn" type="PackedScene" id=4]
 [ext_resource path="res://World/Ground/Ground1.tscn" type="PackedScene" id=5]
 
@@ -11,15 +10,15 @@
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, -1 )
 
-[node name="GroundTileMap" parent="." instance=ExtResource( 2 )]
-tile_data = PoolIntArray( 131069, 0, 0, 131070, 0, 1, 131071, 0, 1, 65536, 0, 1, 65537, 0, 1, 65538, 0, 1, 65539, 0, 2, 196605, 0, 65536, 196606, 0, 65537, 196607, 0, 65537, 131072, 0, 65537, 131073, 0, 65537, 131074, 0, 65537, 131075, 0, 65538, 262141, 0, 131072, 262142, 0, 131073, 262143, 0, 131073, 196608, 0, 131073, 196609, 0, 131073, 196610, 0, 131073, 196611, 0, 131074 )
-
 [node name="SpawnerController" parent="." instance=ExtResource( 4 )]
 spawn_objects = [ ExtResource( 5 ) ]
 
-[node name="Spawner" parent="." instance=ExtResource( 3 )]
-position = Vector2( 128, 32 )
+[node name="Ground1" parent="." instance=ExtResource( 5 )]
+position = Vector2( -176, 16 )
 
-[connection signal="Spawn" from="Spawner" to="SpawnerController" method="spawn"]
+[node name="GroundController" parent="." instance=ExtResource( 2 )]
 
-[editable path="Spawner"]
+[connection signal="Spawn" from="Ground1/Spawner" to="SpawnerController" method="spawn"]
+
+[editable path="Ground1"]
+[editable path="Ground1/Spawner"]
