@@ -1,40 +1,43 @@
 extends KinematicBody2D
 
-enum {
-	MOVE,
-}
-
-export var ACCELERATION = 100;
-export var MAX_SPEED = 200;
-export var FRICTION = 100;
 export var GRAVITY = 100;
-export var JUMPHEIGHT = 1000;
+export var MAXSPEED = 100;
+export var FRICTION = 150;
+export var JUMPHEIGHT = 200;
+export var SPEED = 100;
 
+var currentSpeed = 0.0;
 var velocity: Vector2 = Vector2.ZERO;
-var input_vector = Vector2.ZERO;
 
 onready var stateMachine = $StateMachine;
-onready var inputHandler = $PlayerInputHandler;
 onready var state = "MOVE";
 
 func _ready():
 	stateMachine.connect("StateChanged",self,"on_state_changed");
-	inputHandler.connect("InputVectorChanged",self,"input_vector_changed");
 	
 func _physics_process(delta):
 	match state:
-		"MOVE":
-			move_state(delta);
+		"IDLE":
+			idle_state(delta);
 		"JUMP":
 			jump_state();
+		"MOVELEFT":
+			move_state(-SPEED, delta);
+		"MOVERIGHT":
+			move_state(SPEED, delta);
+		_:
+			stateMachine.state_complete();
+	move(delta);
 
-func move():
+func move_state(speed: float, delta: float):
+	velocity = velocity.move_toward(Vector2(MAXSPEED, velocity.y), speed * delta);
+	
+func idle_state(delta: float):
+	velocity = velocity.move_toward(Vector2(0, velocity.y), FRICTION * delta);
+
+func move(delta):
 	velocity.y += GRAVITY;
 	velocity = move_and_slide(velocity);
-
-func move_state(delta):
-	velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta);
-	move();
 
 func jump_state():
 	velocity.y -= JUMPHEIGHT; 
@@ -42,6 +45,3 @@ func jump_state():
 
 func on_state_changed(_state: String):
 	state = _state;
-
-func input_vector_changed(var vector: Vector2):
-	input_vector = vector;

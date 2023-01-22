@@ -3,14 +3,12 @@ extends Node
 var input_vector: Vector2 = Vector2.ZERO;
 
 signal InputVectorChanged;
-signal JumpPressed;
 
 func _process(delta):
-	input_vector.x = Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft");
-	input_vector.y = Input.get_action_strength("MoveDown") - Input.get_action_strength("MoveUp");
-	
-	if Input.is_action_just_pressed("Jump"):
-		print("JumpSignalled");
-		emit_signal("JumpPressed");
-	
+	var new_vec = Vector2.ZERO;
+	new_vec.x = Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft");
+	new_vec.y = Input.get_action_strength("MoveDown") - Input.get_action_strength("MoveUp");
+	if new_vec == input_vector:
+		return;
+	input_vector = new_vec;
 	emit_signal("InputVectorChanged", input_vector);

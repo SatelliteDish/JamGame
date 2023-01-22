@@ -1,24 +1,30 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/Ground/GroundController.tscn" type="PackedScene" id=2]
+[ext_resource path="res://World/Ground/Start.tscn" type="PackedScene" id=3]
 [ext_resource path="res://World/SpawnerController.tscn" type="PackedScene" id=4]
 [ext_resource path="res://World/Ground/Ground1.tscn" type="PackedScene" id=5]
 
 [node name="World" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, -1 )
+position = Vector2( 0, -96 )
 
 [node name="SpawnerController" parent="." instance=ExtResource( 4 )]
 spawn_objects = [ ExtResource( 5 ) ]
 
-[node name="Ground1" parent="." instance=ExtResource( 5 )]
-position = Vector2( -176, 16 )
-
 [node name="GroundController" parent="." instance=ExtResource( 2 )]
 
-[connection signal="Spawn" from="Ground1/Spawner" to="SpawnerController" method="spawn"]
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
 
-[editable path="Ground1"]
-[editable path="Ground1/Spawner"]
+[node name="Start" parent="." instance=ExtResource( 3 )]
+position = Vector2( -512, 0 )
+
+[node name="Spawner" parent="Start" index="1"]
+start = true
+
+[connection signal="Spawn" from="Start/Spawner" to="SpawnerController" method="spawn"]
+
+[editable path="Start"]
