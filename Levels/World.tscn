@@ -10,6 +10,11 @@
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 0, -96 )
+GRAVITY = 30
+MAXSPEED = 400
+FRICTION = 10
+JUMPHEIGHT = 750
+SPEED = 1000
 
 [node name="SpawnerController" parent="." instance=ExtResource( 4 )]
 spawn_objects = [ ExtResource( 5 ) ]
