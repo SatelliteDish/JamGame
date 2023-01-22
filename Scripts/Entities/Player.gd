@@ -10,17 +10,22 @@ export var FRICTION = 100;
 export var GRAVITY = 100;
 
 var velocity: Vector2 = Vector2.ZERO;
-var input_vector: Vector2 = Vector2.ZERO;
+var input_vector = Vector2.ZERO;
 
-var state = MOVE;
+onready var stateMachine = $StateMachine;
+onready var inputHandler = $PlayerInputHandler;
+onready var state = "MOVE";
 
-func _physics_process(delta):
-	input_vector.x = Input.get_action_strength("MoveRight") - Input.get_action_strength("MoveLeft");
-	input_vector.y = Input.get_action_strength("MoveDown") - Input.get_action_strength("MoveUp");
+func _ready():
+	stateMachine.connect("StateChanged",self,"on_state_changed");
+	inputHandler.connect("InputVectorChanged",self,"input_vector_changed");
 	
+func _physics_process(delta):
 	match state:
-		MOVE:
+		"MOVE":
 			move_state(delta);
+		"JUMP":
+			jump_state();
 
 func move():
 	velocity.y += GRAVITY;
@@ -30,4 +35,12 @@ func move_state(delta):
 	velocity = velocity.move_toward(input_vector * MAX_SPEED, ACCELERATION * delta);
 	move();
 
-#bug booty
+func jump_state():
+	print("Jump");
+	stateMachine.state_complete();
+
+func on_state_changed(_state: String):
+	state = _state;
+
+func input_vector_changed(var vector: Vector2):
+	input_vector = vector;
