@@ -8,6 +8,7 @@ export var ACCELERATION = 100;
 export var MAX_SPEED = 200;
 export var FRICTION = 100;
 export var GRAVITY = 100;
+export var JUMPHEIGHT = 1000;
 
 var velocity: Vector2 = Vector2.ZERO;
 var input_vector = Vector2.ZERO;
@@ -36,10 +37,11 @@ func move_state(delta):
 	move();
 
 func jump_state():
-	print("Jump");
+	velocity.y -= JUMPHEIGHT; 
 	stateMachine.state_complete();
 
 func on_state_changed(_state: String):
+	print("State changed to " + _state);
 	state = _state;
 
 func input_vector_changed(var vector: Vector2):
