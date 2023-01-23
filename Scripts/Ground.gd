@@ -29,7 +29,7 @@ func _physics_process(delta):
 	if global_position.x < spawnX && !hasSpawned:
 		spawner.get_request();
 		hasSpawned = true;
-	if global_position.x < destroyX:
+	if spawner.global_position.x < destroyX:
 		queue_free();
 	velocity.x = -SPEED;
 	if reversed:
