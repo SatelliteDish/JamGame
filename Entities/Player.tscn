@@ -21,3 +21,6 @@ InputHandler = NodePath("InputHandler")
 
 [node name="InputHandler" type="Node" parent="StateMachine"]
 script = ExtResource( 4 )
+
+[node name="BulletSpawn" type="Position2D" parent="."]
+position = Vector2( 20, 0 )
