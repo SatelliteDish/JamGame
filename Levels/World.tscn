@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Entities/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://World/Ground/GroundController.tscn" type="PackedScene" id=2]
 [ext_resource path="res://World/Ground/Start.tscn" type="PackedScene" id=3]
 [ext_resource path="res://World/SpawnerController.tscn" type="PackedScene" id=4]
 [ext_resource path="res://World/Ground/Ground1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://World/Ground/Ground2.tscn" type="PackedScene" id=6]
 
 [node name="World" type="Node2D"]
 
@@ -17,7 +18,7 @@ JUMPHEIGHT = 750
 SPEED = 1000
 
 [node name="SpawnerController" parent="." instance=ExtResource( 4 )]
-spawn_objects = [ ExtResource( 5 ) ]
+spawn_objects = [ ExtResource( 5 ), ExtResource( 6 ) ]
 
 [node name="GroundController" parent="." instance=ExtResource( 2 )]
 

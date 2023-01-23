@@ -4,10 +4,6 @@ signal Spawn;
 
 export var start: bool = false;
 
-func _ready():
-	if start: 
-		get_request();
-
 func get_request():
 	emit_signal("Spawn",self);
 

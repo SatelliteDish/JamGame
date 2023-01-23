@@ -10,6 +10,15 @@ var hasSpawned: bool = false;
 var spawnX = 640.0;
 var destroyX = -1000;
 
+func _ready():
+	if !spawner.start:
+		return;
+	var grControl = get_tree().current_scene.find_node("GroundController");
+	SPEED = grControl.SPEED;
+	spawnX = grControl.SPAWNX;
+	destroyX = grControl.DESTROYX;
+	add_ground_controller(grControl);
+
 func add_ground_controller(controller: Node):
 	groundController = controller;
 	groundController.connect("Reverse",self,"reverse");

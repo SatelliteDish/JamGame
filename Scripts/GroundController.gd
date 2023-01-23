@@ -3,12 +3,13 @@ extends Node
 
 export var SPEED = 100;
 export var SPAWNX = 640;
-export var DESTROYX = -1000;
+export var DESTROYX = -1500;
 
 signal Reverse;
 signal ChangeSpeed;
 
 var reversed = false;
+
 
 func set_reverse(status: bool):
 	reversed = status;
