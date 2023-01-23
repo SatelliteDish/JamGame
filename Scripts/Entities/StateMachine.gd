@@ -77,9 +77,11 @@ func state_changed(var _state):
 	emit_signal("StateChanged", stateString);
 	
 func randomize_inputs():
+	randomize();
 	var length = rand_range(randomMin,randomMax);
 	var timer = get_tree().create_timer(length);
 	timer.connect("timeout",self,"randomize_inputs");
+	randomize();
 	var rand = randi();
 	match rand % 2:
 		0:
